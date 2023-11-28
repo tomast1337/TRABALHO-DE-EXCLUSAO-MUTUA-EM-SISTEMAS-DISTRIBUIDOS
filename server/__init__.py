@@ -2,12 +2,23 @@ import threading
 import socket
 import time
 import queue
+import logging
+from rich.logging import RichHandler
+
+format="%(asctime)s (%(threadName)-2s) %(message)s"
+logging.basicConfig(
+    level="NOTSET", format=format, datefmt="[%X]", handlers=[RichHandler()]
+)
+logger = logging.getLogger(__name__)
 
 class Message:
+    
     def __init__(self, messageID, processID, messageType):
         self.messageID = messageID
         self.processID = processID
         self.messageType = messageType
+        
+        self._logger = logging.getLogger(__name__)
 
     def create_message(self):
         return f"{self.messageID}|{self.processID}|{self.messageType}"
@@ -23,6 +34,8 @@ class Process(threading.Thread):
         threading.Thread.__init__(self)
         self.processID = processID
         self.coordinator = coordinator
+
+        self._logger = logging.getLogger(__name__)
 
     def run(self):
         self.request_access()
@@ -45,6 +58,8 @@ class Coordinator:
     def __init__(self):
         self.queue = queue.Queue()
         self.processes = []
+
+        self._logger = logging.getLogger(__name__)
 
     def accept_connection(self, process):
         self.processes.append(process)
