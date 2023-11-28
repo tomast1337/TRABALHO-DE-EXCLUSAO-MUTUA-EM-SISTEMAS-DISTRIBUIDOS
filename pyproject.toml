@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "trabalho de exclusão mútua em sistemas distribuídos"
+version = "0.1.0"
+description = ""
+authors = ["tomast1337 <vycasnicolas@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.26.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
