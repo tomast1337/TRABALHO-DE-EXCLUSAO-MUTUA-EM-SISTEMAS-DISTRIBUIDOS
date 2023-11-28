@@ -24,3 +24,16 @@ O processo deve se conectar ao coordenador via sockets (ou alguma outra API para
 ## Medição e avaliação
 
 Os processos devem ser todos iniciados sequencialmente (sem retardo), por um script ou um outro processo. Uma execução com n processos e r repetições deve dar origem a um arquivo resultado.txt com nr linhas. Você deve verificar se o arquivo tem esse número de linhas e se as linhas estão corretas (respeitam a ordem de evolução do relógio do sistema, e se cada processo escreveu r vezes). O log gerado pelo coordenador deve ser avaliado para verificar a correte do funcionamento. Por exemplo, as mensagens GRANT e RELEASE sempre ocorrem de forma intercalada (depois de um GRANT sempre há um RELEASE); a ordem dos processos das mensagens REQUEST deve ser a mesma que a ordem dos processos da mensagem RELEASE.
+
+## Como executar
+
+### Servidor:
+```bash
+python ./server/__init__.py
+```
+
+### Cliente:
+```bash
+python ./client/__init__.py
+```
+
