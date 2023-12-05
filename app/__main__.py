@@ -31,4 +31,4 @@ for i in range(5):
 for process in processes:
     process.join()
 
-logger.info("Coordinator and sockets closed")
+logger.info("Coordinator and Processes closed")
