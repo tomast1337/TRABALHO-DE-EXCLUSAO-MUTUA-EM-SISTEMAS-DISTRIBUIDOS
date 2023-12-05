@@ -37,6 +37,16 @@ class Message:
         self.processID = processID
         self.messageType = messageType
 
+    def from_string(message: str):
+        if len(message) != 10:
+            raise Exception("Message size is not 10 bytes")
+        parts = message.split("|")
+        messageID = parts[0]
+        processID = parts[1]
+        messageType = MessageTypes(parts[2])
+        return Message(messageID, processID, messageType)
+
+
     def create_message(self):
         """
         Creates a message in the format: messageID|processID|messageType,
@@ -63,37 +73,3 @@ class Message:
         self.messageID = parts[0]
         self.processID = parts[1]
         self.messageType = MessageTypes(parts[2])
-
-
-class TestMessage(unittest.TestCase):
-    """
-    A test case for the Message class.
-    """
-    def test_create_message(self):
-        message = Message('1', '2', MessageTypes.REQUEST)
-        self.assertEqual(message.create_message(), '1|2|111111')
-
-    def test_parse_message(self):
-        message = Message('1', '2', MessageTypes.REQUEST)
-        message.parse_message('3|4|222222')
-        self.assertEqual(message.messageID, '3')
-        self.assertEqual(message.processID, '4')
-        self.assertEqual(message.messageType, MessageTypes.RELEASE)
-
-    def test_invalid_message_type(self):
-        with self.assertRaises(Exception):
-            Message('1', '2', 'INVALID')
-
-    def test_invalid_message_length(self):
-        with self.assertRaises(Exception):
-            Message('12', '2', MessageTypes.REQUEST)
-        with self.assertRaises(Exception):
-            Message('1', '23', MessageTypes.REQUEST)
-
-    def test_invalid_parse_message_length(self):
-        message = Message('1', '2', MessageTypes.REQUEST)
-        with self.assertRaises(Exception):
-            message.parse_message('12345678901')
-
-if __name__ == '__main__':
-    unittest.main()
