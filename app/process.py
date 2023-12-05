@@ -7,35 +7,53 @@ import time
 from datetime import datetime
 
 class Process(threading.Thread):
-    def __init__(self, processID, coordinator_address, filename = "processes.txt"):
+    def __init__(self, process_id, coordinator_address, filename="processes.txt"):
         threading.Thread.__init__(self)
-        self.processID = processID
+        self.process_id = process_id
         self.coordinator_address = coordinator_address
         self.filename = filename
-
         self._logger = logging.getLogger(__name__)
 
+    def work(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(self.coordinator_address)
+        self._logger.info(f"Process {self.process_id} connected to coordinator")
+        try:
+            while True:  # repeat indefinitely
+                request_msg = Message('1', self.process_id, MessageTypes.REQUEST).create_message()
+                s.sendall(request_msg.encode())
+                self._logger.info(f"Process {self.process_id} sent REQUEST message")
+                self.write_to_file("REQUEST")
+                while True:  # wait for GRANT message
+                    data = s.recv(1024)
+                    if not data:
+                        continue
+                    response_msg = Message.from_string(data.decode())
+                    if response_msg.messageType == MessageTypes.GRANT:
+                        self._logger.info(f"Process {self.process_id} received GRANT message")
+                        self.write_to_file("GRANT")
+                        time.sleep(5)  # wait for 2 seconds
+                        release_msg = Message('2', self.process_id, MessageTypes.RELEASE).create_message()
+                        self.write_to_file("RELEASE")
+                        s.sendall(release_msg.encode())
+                        self._logger.info(f"Process {self.process_id} sent RELEASE message")
+                        break  # break the loop after receiving GRANT message
+        except (BrokenPipeError, ConnectionResetError):
+            self._logger.error(f"Process {self.process_id} was disconnected from coordinator")
+        finally:
+            s.close()
+            
     def run(self):
-        self.request_access()
-        time.sleep(5) # simulate work for 5 seconds
-        self.release_access()
+        try:
+            self.work()
+        except Exception as e:
+            self._logger.error(f"Process {self.process_id} error: {e}")
+        except KeyboardInterrupt:
+            self._logger.info(f"Process {self.process_id} interrupted")
+        else:
+            self._logger.info(f"Process {self.process_id} finished")
 
-    def request_access(self):
-        msg = Message(str(self.processID), str(self.processID), MessageTypes.REQUEST)
-        self.send_message(msg.create_message())
-
-    def release_access(self):
-        msg = Message(str(self.processID), str(self.processID), MessageTypes.RELEASE)
-        self.send_message(msg.create_message())
-
-    def send_message(self, message):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect(self.coordinator_address)
-            s.sendall(message.encode())
-            self._logger.info(f"Process {self.processID} sent: {message}")
-            self.write_to_file(message)
-
-    def write_to_file(self, message):
-        with open(self.filename, "a") as file:
-            formatted_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            file.write(f"Process {self.processID} sent: {message} at {formatted_time }\n")
+    def write_to_file(self, message=""):
+        with open(self.filename, 'a') as f:
+            f.write(f"Process {self.process_id} wrote to file at {datetime.now()}, {message}\n")
+        self._logger.info(f"Process {self.process_id} wrote to file at {datetime.now()}")
