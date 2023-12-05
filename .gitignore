@@ -39,3 +39,7 @@ pip-wheel-metadata
 /poetry.toml
 
 poetry/core/*
+
+# user config
+
+processes.txt
