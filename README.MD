@@ -7,11 +7,11 @@ O objetivo deste trabalho é projetar e implementar o algoritmo centralizado de 
 
 Seu programa deve ter três tipos de mensagens:
 
-1. REQUEST: Mensagem enviada por um processo para solicitar acesso à região crítica.
-2. GRANT: Mensagem enviada pelo coordenador dando acesso à região crítica.
-3. RELEASE: Mensagem enviada por um processo ao sair da região crítica.
+1. `REQUEST`: Mensagem enviada por um processo para solicitar acesso à região crítica.
+2. `GRANT`: Mensagem enviada pelo coordenador dando acesso à região crítica.
+3. `RELEASE`: Mensagem enviada por um processo ao sair da região crítica.
 
-Para facilitar, todas as mensagens devem ser strings com tamanho fixo dado por F bytes e separadores. Os separadores servem para indicar os campos dentro da mensagem, tais como o identificador da mensagem, identificador do processo, e o final da mensagem. Por exemplo, se F = 10 bytes, a mensagem REQUEST poderia ter o seguinte formado 1|3|000000, o que neste caso indica que o separador é o caractere | e a mensagem REQUEST tem identificador 1 (cada mensagem deve ter um identificador), que o processo que gerou a mensagem tem identificador 3. Repare que os zeros no final servem apenas para garantir que a mensagem sempre tenha F bytes.
+Para facilitar, todas as mensagens devem ser strings com tamanho fixo dado por F bytes e separadores. Os separadores servem para indicar os campos dentro da mensagem, tais como o identificador da mensagem, identificador do processo, e o final da mensagem. Por exemplo, se `F = 10 bytes`, a mensagem `REQUEST` poderia ter o seguinte formado `1|3|000000`, o que neste caso indica que o separador é o caractere `|` e a mensagem `REQUEST` tem identificador `1` (cada mensagem deve ter um identificador), que o processo que gerou a mensagem tem identificador `3`. Repare que os zeros no final servem apenas para garantir que a mensagem sempre tenha F bytes.
 
 ## Coordenador
 
