@@ -33,11 +33,15 @@ Os *processos* devem ser todos iniciados sequencialmente (sem retardo), por um s
 
 ### Servidor:
 ```bash
-python ./server/__init__.py
+python ./app/server.py
 ```
 
 ### Cliente:
 ```bash
-python ./client/__init__.py
+python ./app/client.py 
 ```
 
+### Mutiplos Clientes para teste
+```bash
+python ./app/supertest.py 
+```
