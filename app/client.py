@@ -1,12 +1,11 @@
 import logging
 from rich.logging import RichHandler
-from coordinator import Coordinator
 from process import Process
 import Pyro4
 
 format="%(asctime)s (%(threadName)-2s) %(message)s"
 logging.basicConfig(
-    level="NOTSET",
+    level=logging.NOTSET,
     format=format,
     datefmt="[%X]",
     handlers=[RichHandler()]
