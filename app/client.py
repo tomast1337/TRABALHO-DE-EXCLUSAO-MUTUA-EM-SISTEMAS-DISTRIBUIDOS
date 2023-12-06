@@ -6,7 +6,10 @@ import Pyro4
 
 format="%(asctime)s (%(threadName)-2s) %(message)s"
 logging.basicConfig(
-    level="NOTSET", format=format, datefmt="[%X]", handlers=[RichHandler()]
+    level="NOTSET",
+    format=format,
+    datefmt="[%X]",
+    handlers=[RichHandler()]
 )
 logger = logging.getLogger(__name__)
 
