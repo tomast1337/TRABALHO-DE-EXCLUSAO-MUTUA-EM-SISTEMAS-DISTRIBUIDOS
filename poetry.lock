@@ -211,6 +211,20 @@ plugins = ["importlib-metadata"]
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pyro4"
+version = "4.82"
+description = "distributed object middleware for Python (RPC)"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Pyro4-4.82-py2.py3-none-any.whl", hash = "sha256:bbf5d7413e616d3e1978a05d7caca62eec59692d2dab75dd22a4426ef9b8a691"},
+    {file = "Pyro4-4.82.tar.gz", hash = "sha256:511f5b0804e92dd77dc33adf9c947787e3f9e9c5a96b12162f0557a7c4ce21fb"},
+]
+
+[package.dependencies]
+serpent = {version = ">=1.27", markers = "python_version >= \"3.2\""}
+
+[[package]]
 name = "rich"
 version = "13.7.0"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
@@ -227,6 +241,17 @@ pygments = ">=2.13.0,<3.0.0"
 
 [package.extras]
 jupyter = ["ipywidgets (>=7.5.1,<9)"]
+
+[[package]]
+name = "serpent"
+version = "1.41"
+description = "Serialization based on ast.literal_eval"
+optional = false
+python-versions = ">=3.2"
+files = [
+    {file = "serpent-1.41-py3-none-any.whl", hash = "sha256:5fd776b3420441985bc10679564c2c9b4a19f77bea59f018e473441d98ae5dd7"},
+    {file = "serpent-1.41.tar.gz", hash = "sha256:0407035fe3c6644387d48cff1467d5aa9feff814d07372b78677ed0ee3ed7095"},
+]
 
 [[package]]
 name = "tomli"
@@ -253,4 +278,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "13ad5c5f2c1c347dc6ed967a29990ee6124428eeeadf06205b7b162be91c49de"
+content-hash = "2650721418a4d27b2f57b540a83f7e6d7b9b3a271a1a6a4536e2a76766043fb3"

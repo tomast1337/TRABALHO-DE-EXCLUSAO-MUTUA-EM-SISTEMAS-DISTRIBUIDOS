@@ -42,4 +42,4 @@ poetry/core/*
 
 # user config
 
-processes.txt
+processes.log
