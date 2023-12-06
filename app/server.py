@@ -5,7 +5,10 @@ from coordinator import Coordinator
 
 format="%(asctime)s (%(threadName)-2s) %(message)s"
 logging.basicConfig(
-    level="NOTSET", format=format, datefmt="[%X]", handlers=[RichHandler()]
+    level=logging.INFO,
+    format=format,
+    datefmt="[%X]",
+    handlers=[RichHandler()]
 )
 logger = logging.getLogger(__name__)
 
