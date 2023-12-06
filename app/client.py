@@ -33,4 +33,4 @@ process = Process(
 logger.info(f"Process {id} starting...")
 process.start()
 process.join()
-logger.info("Processes closed")
+logger.info("Process closed")
