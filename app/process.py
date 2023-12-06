@@ -66,5 +66,4 @@ class Process(threading.Thread):
 
     def write_to_file(self, message=""):
         with open(self.filename, 'a') as f:
-            f.write(f"Process {self.process_id} wrote to file at {datetime.now()}, {message}\n")
-        self._logger.info(f"Process {self.process_id} wrote to file at {datetime.now()}")
+            f.write(f"Process {self.process_id}: {message} @ {datetime.now()}\n")
