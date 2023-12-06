@@ -18,16 +18,5 @@ logger.info("Coordinator created")
 coordinator.start_server()
 logger.info("Coordinator server started")
 
-# Create 5 Process clients and connect them to the Coordinator
-processes = []
-for i in range(5):
-    process = Process(str(i), coordinator_host)
-    processes.append(process)
-    process.start()
-    logger.info(f"Process {i} started")
 
-# Wait for the Processes to finish
-for process in processes:
-    process.join()
 
-logger.info("Coordinator and Processes closed")
