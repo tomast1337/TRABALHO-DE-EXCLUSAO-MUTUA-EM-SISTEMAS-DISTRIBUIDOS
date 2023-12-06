@@ -1,7 +1,7 @@
 import logging
+import Pyro4
 from rich.logging import RichHandler
 from coordinator import Coordinator
-from process import Process
 
 format="%(asctime)s (%(threadName)-2s) %(message)s"
 logging.basicConfig(
@@ -9,14 +9,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Create a Coordinator object
-coordinator_host = ('localhost', 12345)
-coordinator = Coordinator(coordinator_host)
-logger.info("Coordinator created")
-
-# Start the Coordinator server
-coordinator.start_server()
-logger.info("Coordinator server started")
 
 
+def main():
+    daemon = Pyro4.Daemon()
+    logger.info("Coordinator starting...")
+    uri = daemon.register(Coordinator)
+    logger.info(f"Coordinator uri: {uri}")
+    daemon.requestLoop()
 
+if __name__=="__main__":
+    main()
