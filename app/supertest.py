@@ -1,4 +1,5 @@
 import logging
+import random
 from threading import Thread
 import time
 import Pyro4
@@ -31,7 +32,9 @@ if uri == "":
 def main_processs():
     # create a process for each process id
     processes = []
-    for i in range(quantity):
+    indices = [str(i) for i in range(quantity)]
+    random.shuffle(indices)
+    for i in indices:
         process = Process(
             process_id = str(i),
             coordinator = Pyro4.Proxy(uri),
