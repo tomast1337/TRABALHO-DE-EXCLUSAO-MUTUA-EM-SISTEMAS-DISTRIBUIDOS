@@ -8,7 +8,7 @@ from process import Process
 
 format="%(asctime)s (%(threadName)-2s) %(message)s"
 logging.basicConfig(
-    level=logging.NOTSET,
+    level=logging.DEBUG,
     format=format,
     datefmt="[%X]",
     handlers=[RichHandler()]
